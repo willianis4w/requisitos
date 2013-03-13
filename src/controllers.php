@@ -17,11 +17,12 @@ require_once 'Requisitos/Controller/Contato.php';
 require_once 'Requisitos/Controller/Error.php';
 
 // Verifica se o usuario esta logado ou não
-$app->before(function(  ) use ( $app ){
+$app->before(function() use ( $app ){
 
-	if(  $_SERVER['REQUEST_URI'] != '/requisitos/web/login'){
+	if(  $_SERVER['REQUEST_URI'] != '/willian/requisitos/web/login'){
 		if ( ( null === $user = $app['session']->get('user') ) || TRUE !== $app['session']->get('auth') ) {
         	return $app->redirect('login');
     	}
 	}
+	
 });
