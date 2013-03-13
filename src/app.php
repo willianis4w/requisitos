@@ -23,7 +23,6 @@ define('DIR_VENDOR',realpath(dirname(__FILE__) . '/../vendor/') );
 //define o SEPARATOR
 define('DS',DIRECTORY_SEPARATOR);
 
-
 $loader = require DIR_VENDOR . '/autoload.php';
 $loader->add('Reservas',DIR_ROOT . '/src');
 
