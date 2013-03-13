@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+
+    {% block content %}
+        
+        <section class="content">
+            <div class="container">
+                <div class="row-fluid">
+                    <div class="span5 offset3">
+
+                        <form class="form-horizontal" action="" method="post" name="loginForm">
+                            <fieldset>
+                                <legend class="">Login</legend>
+
+                                <!-- erro -->
+                                {% if error %}
+                                   <div class="alert alert-error fadeIn">
+                                       Login ou senha incorretos, tente novamente.
+                                   </div>
+                                {% endif %}
+                                
+                                <!-- E-mail -->
+                                <div class="control-group">
+                                    <label class="control-label"  for="email">E-mail</label>
+                                    <div class="controls">
+                                        <input type="email" name="email" class="input-xlarge" required>
+                                    </div>
+                                </div>
+
+                                <!-- Password-->
+                                <div class="control-group">
+                                    <label class="control-label" for="senha">Senha</label>
+                                    <div class="controls">
+                                        <input type="password" name="senha" class="input-xlarge" required>
+                                    </div>
+                                </div>
+
+                                <!-- Password-->
+                                <!-- <div class="control-group">
+                                    <div class="controls">
+                                        <input type="checkbox" name="senha"> Lembrar
+                                    </div>
+                                </div> -->
+
+                                <!-- Submit -->
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <button type="submit" class="btn btn-success pull-right">Entrar</button>
+                                    </div>
+                                </div>
+                          </fieldset>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    {% endblock %}

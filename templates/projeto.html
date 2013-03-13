@@ -1,0 +1,124 @@
+{% extends "layout.html" %}
+
+    {% block content %}
+
+        <!-- CONTEUDO -->
+        <section class="content">
+            <div class="container">
+                <div class="row-fluid">
+
+                    <!-- titulo pagina -->
+                    <div class="span10">
+                        <h2>Projetos</h2>
+                    </div>
+
+                    <!-- adicionar -->
+                    <div class="span2">
+                        <a href="{{ app.request.baseUrl }}/projeto-adicionar" class="btn btn-primary pull-right"><i class="icon-plus icon-white"></i> Adicionar</a>
+                    </div>
+
+                </div>
+
+                <div class="row-fluid">
+
+                    <div class="span12">
+
+                        {% if result == 'success' %}
+                            <div class="alert alert-success hide fadeIn">
+                                <a class="close" data-dismiss="alert">&times;</a>
+                                Atualização realizada com sucesso!
+                            </div>
+                        {% endif %}
+                        
+                        {% if result == 'error' %}
+                            <div class="alert alert-error hide fadeIn">
+                               <a class="close" data-dismiss="alert">&times;</a>
+                               Ocorre um erro, tente novamente!
+                            </div>
+                        {% endif %}
+
+                        <table class="table table-bordered table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Data início</th>
+                                    <th>Nome</th>
+                                    <th>Descrição</th>
+                                    <th>Cliente</th>
+                                    <th style="width: 46px;">Ações</th>
+                                </tr>
+                            </thead>
+                                {% for projeto_aberto in projetos_abertos %}
+                                    <tr>
+                                        <td>{{ projeto_aberto.inicio }}</td>
+                                        <td>{{ projeto_aberto.nome }}</td>
+                                        <td data-toggle="tooltip" data-placement="left" title="{{ projeto_aberto.descricao }}">{{ projeto_aberto.descricao }}</td>
+                                        <td>{{ projeto_aberto.cliente }}</td>
+                                        <td>
+                                            <a data-toggle="tooltip" title="Editar" href="{{ app.request.baseUrl }}/projeto-editar/{{ projeto_aberto.id }}"><i class="icon-pencil"></i></a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            <tbody>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                </div>
+
+
+                <hr>
+
+
+                <!-- Projetos antigos -->
+
+                <div class="row-fluid">
+
+                    <div class="span10">
+                        <h4>Projetos finalizados</h4>
+                    </div>
+
+                </div>
+
+                <div class="row-fluid">
+
+                    <div class="span12">
+
+                        <table class="table table-bordered table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Data início</th>
+                                    <th>Data final</th>
+                                    <th>Nome</th>
+                                    <th>Descrição</th>
+                                    <th>Cliente</th>
+                                    <th style="width: 46px;">Ações</th>
+                                </tr>
+                            </thead>
+                                {% for projeto_fechado in projetos_fechados %}
+                                    <tr>
+                                        <td>{{ projeto_fechado.inicio }}</td>
+                                        <td>{{ projeto_fechado.final }}</td>
+                                        <td>{{ projeto_fechado.nome }}</td>
+                                        <td data-toggle="tooltip" data-placement="left" title="{{ projeto_fechado.descricao }}">{{ projeto_fechado.descricao }}</td>
+                                        <td>{{ projeto_fechado.cliente }}</td>
+                                        <td>
+                                            <a data-toggle="tooltip" title="Editar" href="{{ app.request.baseUrl }}/projeto-editar/{{ projeto_fechado.id }}"><i class="icon-pencil"></i></a>
+                                            <a data-toggle="tooltip" title="Excluir permanentemente" onClick="return confirm('Confirma exclusão permanente deste projeto?')"; href="{{ app.request.baseUrl }}/projeto-deletar/{{ projeto_fechado.id }}"><i class="icon-remove"></i></a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            <tbody>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                    
+                </div>
+
+            </div>
+        </section>
+
+    {% endblock %}

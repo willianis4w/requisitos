@@ -1,0 +1,70 @@
+{% extends "layout.html" %}
+
+    {% block content %}
+
+        <!-- CONTEUDO -->
+        <section class="content">
+            <div class="container">
+                <div class="row-fluid">
+
+                    <!-- titulo pagina -->
+                    <div class="span12">
+                        <h1>Contatos - <small>adicionar</small></h1>
+                    </div>
+
+                </div>
+
+                <div class="row-fluid">
+
+                    <div class="span5 offset3">
+
+                        <form class="form-horizontal" action="#" method="post">
+                            <fieldset>
+                                <div class="control-group">
+                                    <label class="control-label" for="Cliente">Cliente</label>
+                                    <div class="controls">
+                                        <input type="text" class="input-xlarge" name="cliente" value="{{ cliente.nome }}" readonly required>
+                                    </div>
+                                </div>
+
+                                <div class="control-group">
+                                    <label class="control-label" for="Nome">Nome *</label>
+                                    <div class="controls">
+                                        <input type="text" class="input-xlarge" name="nome" required>
+                                    </div>
+                                </div>
+
+                                <div class="control-group">
+                                    <label class="control-label" for="E-mail">E-mail</label>
+                                    <div class="controls">
+                                        <input type="email" class="input-xlarge" name="email">
+                                    </div>
+                                </div>
+
+                                <div class="control-group">
+                                    <label class="control-label" for="Função">Função</label>
+                                    <div class="controls">
+                                        <input type="text" class="input-xlarge" name="funcao">
+                                    </div>
+                                </div>
+
+                                <div class="control-group">
+                                    <label class="control-label" for="Observação">Observação</label>
+                                    <div class="controls">
+                                        <textarea name="observacao" class="input-xlarge" rows="8"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="controls">
+                                    <button type="submit" class="btn btn-success">Salvar</button>
+                                </div>
+                            </fieldset>
+                        </form>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    {% endblock %}

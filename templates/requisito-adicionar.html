@@ -1,0 +1,122 @@
+{% extends "layout.html" %}
+
+    {% block content %}
+
+        <!-- CONTEUDO -->
+        <section class="content">
+            <div class="container">
+                <div class="row-fluid">
+
+                    <!-- titulo pagina -->
+                    <div class="span12">
+                        <h1>Requisito - <small>adicionar</small></h1>
+                    </div>
+
+                </div>
+
+                <div class="row-fluid">
+
+                    <div class="span5 offset3">
+
+                        <form class="form-horizontal" action="" method="post">
+                            <fieldset>
+                                <div class="control-group">
+                                    <label class="control-label" for="Código">Código *</label>
+                                    <div class="controls">
+                                        <input type="text" class="input-xlarge" name="codigo" required>
+                                    </div>
+                                </div>
+
+                                <div class="control-group">
+                                    <label class="control-label" for="nome">Nome *</label>
+                                    <div class="controls">
+                                        <input type="text" class="input-xlarge" name="nome" required>
+                                    </div>
+                                </div>
+
+                                <div class="control-group">
+                                    <label class="control-label" for="Prioridade">Prioridade *</label>
+                                    <div class="controls">
+                                        <select class="input-xlarge" name="prioridade" data-select="select2" required>
+                                            <option value="alta">Alta</option>
+                                            <option value="media" selected>Média</option>
+                                            <option value="baixa">Baixa</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="control-group">
+                                    <label data-toggle="tooltip" data-placement="right" title="Isso muda direto?" class="control-label" for="Estabilidade">Estabilidade *</label>
+                                    <div class="controls">
+                                        <select class="input-xlarge" name="estabilidade" data-select="select2" required>
+                                            <option value="alta">Alta</option>
+                                            <option value="media" selected>Média</option>
+                                            <option value="baixa">Baixa</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="control-group">
+                                    <label class="control-label" for="Prioridade">Tipo de requisito *</label>
+                                    <div class="controls">
+                                        <select class="input-xlarge" name="tipo" data-select="select2" required>
+                                            <option value="funcional">Funcional</option>
+                                            <option value="nao_funcional">Não funcional</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="control-group">
+                                    <label data-toggle="tooltip" data-placement="right" title="breve explicação" class="control-label" for="Prioridade">Impacto na arquitetura *</label>
+                                    <div class="controls">
+                                        <select class="input-xlarge" name="impacto" data-select="select2" required>
+                                            <option value="alta">Alto</option>
+                                            <option value="media" selected>Médio</option>
+                                            <option value="baixa">Baixo</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="control-group">
+                                    <label class="control-label" for="nome">Descrição / Exemplos</label>
+                                    <div class="controls">
+                                        <textarea name="descricao" class="input-xlarge" rows="8"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="control-group">
+                                    <label data-toggle="tooltip" data-placement="right" title="Este requisito é dependente de outro?" class="control-label" for="Requisito pai">Requisito pai</label>
+                                    <div class="controls">
+                                        <select class="input-xlarge" name="requisito_pai" data-select="select2" multiple>
+                                            <option value="req">REQ001 - Requisito numero 1</option>
+                                            <option value="eqw">REQ002 - Requisito numero 2</option>
+                                            <option value="qweqw">REQ003 - Requisito numero 3</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="control-group">
+                                    <label class="control-label" for="Contato">Contato</label>
+                                    <div class="controls">
+                                        <select class="input-xlarge" name="contato" data-select="select2">
+                                            <option value="">Selecione</option>
+                                            <option value="">Contato nome - função</option>
+                                            <option value="">Contato nome - função</option>
+                                            <option value="">Contato nome - função</option>
+                                            <option value="">Contato nome - função</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="controls">
+                                    <button type="submit" class="btn btn-success">Salvar</button>
+                                </div>
+                            </fieldset>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    {% endblock %}

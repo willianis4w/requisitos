@@ -1,0 +1,167 @@
+{% extends "layout.html" %}
+
+    {% block content %}
+
+        <!-- CONTEUDO -->
+        <section class="content">
+            <div class="container">
+                <div class="row-fluid">
+
+                    <!-- titulo pagina -->
+                    <div class="span12">
+                        <h1>Projetos - <small>editar</small></h1>
+                    </div>
+
+                        <button class="btn btn-primary" data-toggle="collapse" data-target="#dados-projeto">
+                            Dados do projeto <i class="icon-chevron-down icon-white"></i>
+                        </button>
+                        {% if readonly == false %} 
+                            <a href="{{ app.request.baseUrl }}/projeto-finalizar/1" class="btn btn-danger pull-right"><i class="icon-ok icon-white"></i> Finalizar projeto</a>
+                        {% endif %}
+
+                </div>
+
+                <div class="row-fluid">
+
+                    <div  class="span5 offset3">
+
+                        <form id="dados-projeto" class="form-horizontal collapse" action="" method="post">
+                            <fieldset>
+                                <div class="control-group">
+                                    <label class="control-label" for="nome">Nome *</label>
+                                    <div class="controls">
+                                        <input type="text" class="input-xlarge" name="nome" value="{{ projeto.nome }}" required>
+                                    </div>
+                                </div>
+
+                                <div class="control-group">
+                                    <label class="control-label" for="nome">Descrição</label>
+                                    <div class="controls">
+                                        <textarea name="descricao" class="input-xlarge" rows="8">{{ projeto.descricao }}</textarea>
+                                    </div>
+                                </div>
+
+                                <div class="control-group">
+                                    <label class="control-label" for="nome">Cliente *</label>
+                                    <div class="controls">
+                                        <select class="input-xlarge" name="id_cliente" data-select="select2" required>
+                                            {% for cliente in clientes %}
+                                                <option {% if projeto.cliente == cliente.id %} selected {% endif %} value="{{ cliente.id }}">{{ cliente.nome }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="controls">
+                                    <button type="submit" class="btn btn-success">Salvar</button>
+                                </div>
+                            </fieldset>
+                        </form>
+
+                    </div>
+                </div>
+
+
+                <hr>
+
+
+                <!-- Requisitos em aberto -->
+
+                <div class="row-fluid">
+
+                    <div class="span9">
+                        <h4>Requisitos em aberto</h4>
+                    </div>
+
+                    <!-- adicionar -->
+                    <div class="span3">
+                        <a href="{{ app.request.baseUrl }}/requisito-adicionar" class="btn btn-primary pull-right"><i class="icon-plus icon-white"></i> Adicionar requisito</a>
+                    </div>
+
+                </div>
+
+                <div class="row-fluid">
+
+                    <div class="span12">
+
+                        <table class="table table-bordered table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Código</th>
+                                    <th>Data início</th>
+                                    <th>Nome</th>
+                                    <th>Prioridade</th>
+                                    <th>Descrição</th>
+                                    <th style="width: 46px;">Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>REQ 001</td>
+                                    <td>01/02/2013</td>
+                                    <td>Fazer o sistema</td>
+                                    <td>Alta</td>
+                                    <td data-toggle="tooltip" data-placement="left" title="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id eaque veniam ipsam sequi nostrum sapiente voluptatibus quo ducimus ab deserunt fugit maxime aut esse sit eum ipsum vero sunt mollitia">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id eaque veniam ipsam sequi nostrum sapiente voluptatibus quo ducimus ab deserunt fugit maxime aut esse sit eum ipsum vero sunt mollitia?</td>
+                                    <td>
+                                        <a data-toggle="tooltip" title="Editar" href="{{ app.request.baseUrl }}/requisito-editar/1"><i class="icon-pencil"></i></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+
+
+                <hr>
+
+
+                <!-- Requisitos finalizados -->
+
+                <div class="row-fluid">
+
+                    <div class="span9">
+                        <h4>Requisitos finalizados</h4>
+                    </div>
+
+                </div>
+
+                <div class="row-fluid">
+
+                    <div class="span12">
+
+                        <table class="table table-bordered table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Código</th>
+                                    <th>Data início</th>
+                                    <th>Data conclusão</th>
+                                    <th>Nome</th>
+                                    <th>Prioridade</th>
+                                    <th>Descrição</th>
+                                    <th style="width: 46px;">Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>REQ 001</td>
+                                    <td>01/02/2013</td>
+                                    <td>28/02/2013</td>
+                                    <td>Fazer o sistema</td>
+                                    <td>Alta</td>
+                                    <td data-toggle="tooltip" data-placement="left" title="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id eaque veniam ipsam sequi nostrum sapiente voluptatibus quo ducimus ab deserunt fugit maxime aut esse sit eum ipsum vero sunt mollitia">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id eaque veniam ipsam sequi nostrum sapiente voluptatibus quo ducimus ab deserunt fugit maxime aut esse sit eum ipsum vero sunt mollitia?</td>
+                                    <td>
+                                        <a data-toggle="tooltip" title="Editar" href="{{ app.request.baseUrl }}/requisito-editar/1"><i class="icon-pencil"></i></a>
+                                        <a data-toggle="tooltip" title="Excluir permanentemente" onClick="return confirm('Confirma Exclusão?')"; href="{{ app.request.baseUrl }}/requisito-deletar/1"><i class="icon-remove"></i></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    {% endblock %}

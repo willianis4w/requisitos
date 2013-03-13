@@ -1,0 +1,28 @@
+/**/
+/* line 3, ../sass/screen.scss */
+.flex-table input, .flex-table textarea {
+  margin-bottom: 0;
+}
+
+/* line 7, ../sass/screen.scss */
+.submit-transparent {
+  border: 0;
+  background: transparent;
+  width: 20px;
+}
+
+/* line 13, ../sass/screen.scss */
+.atualizacao {
+  position: fixed;
+  top: 100px;
+}
+
+/* line 18, ../sass/screen.scss */
+.flex-table td {
+  vertical-align: middle;
+}
+
+/* line 22, ../sass/screen.scss */
+.select2-drop, .select2-choice, .select2-drop-multi, .select2-container-multi {
+  width: 280px !important;
+}

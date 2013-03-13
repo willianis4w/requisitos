@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+
+    {% block content %}
+
+        <!-- CONTEUDO -->
+        <section class="content">
+            <div class="container">
+                <div class="row-fluid">
+
+                    <!-- titulo pagina -->
+                    <div class="span12">
+                        <h1>Projetos - <small>adicionar</small></h1>
+                    </div>
+
+                </div>
+
+                <div class="row-fluid">
+
+                    <div class="span5 offset3">
+
+                        <form class="form-horizontal" action="#" method="post">
+                            <fieldset>
+                                <div class="control-group">
+                                    <label class="control-label" for="nome">Nome *</label>
+                                    <div class="controls">
+                                        <input type="text" class="input-xlarge" name="nome" required>
+                                    </div>
+                                </div>
+
+                                <div class="control-group">
+                                    <label class="control-label" for="nome">Descrição</label>
+                                    <div class="controls">
+                                        <textarea name="descricao" class="input-xlarge" rows="8"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="control-group">
+                                    <label class="control-label" for="nome">Cliente *</label>
+                                    <div class="controls">
+                                        <select class="input-xlarge" name="id_cliente" data-select="select2" required>
+                                            <option value="">Selecione o cliente</option>
+                                            {% for cliente in clientes %}
+                                                <option value="{{ cliente.id }}">{{ cliente.nome }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="controls">
+                                    <button type="submit" class="btn btn-success">Salvar</button>
+                                </div>
+                            </fieldset>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    {% endblock %}

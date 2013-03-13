@@ -1,0 +1,164 @@
+/***************
+	STRUCT
+	
+	- Compass Imports
+	
+	- Mixins
+		
+	- Font-face
+
+	- Variables
+
+	- General Styles
+		- Body
+		- Links
+		- Selection
+		- Headers
+		- Lists
+		- Forms
+		- Twitter Bootstrap's changes
+		- Misc
+	
+/***************/
+
+/***************
+	Compass imports
+***************/
+@import "compass/css3";
+@import "compass/utilities";
+@import "compass/typography";
+
+
+/***************
+	Twitter Bootstrap
+***************/
+@import "lib/bootstrap.scss";
+@import "lib/responsive.scss";
+
+
+/***************
+	Mixins
+***************/
+@import "_mixin";
+
+/***************
+	Font-face
+***************/
+
+/***************
+	Variables
+***************/
+
+	/** Links **/
+	$normal 				: #08C;
+	$hover 					: rgb(4, 96, 141);;
+	$active 				: false;
+	$visited 				: false;
+	$focus 					: false;
+
+	/** Body **/
+	$body_color				: #333;
+	$body_background 		: #fff;
+	$font_family 			: Arial,Sans-serif;
+	$font_size				: 15px;
+	$line_height			: 20px;
+
+	/** Header | Footer **/
+	$header_background		: #333;
+	$header_color 			: #fff;
+
+	$footer_background		: #333;
+	$footer_color 			: #333;
+
+	/** Selection **/
+	$selection_background	: #333;
+	$selection_color		: #fff;
+
+	/** Others **/
+
+
+
+/***************
+	General Styles
+***************/
+
+/** Body **/
+body {
+	background 			: $body_background;
+	color 				: $body_color;
+	font-size			: $font_size;
+	font-family			: $font_family;
+	line-height 		: $line_height;
+}
+
+/** Links **/
+a {
+	@include link-colors($normal, $hover);
+	@include transition-duration(0.3s);
+	@include transition-timing-function(ease-in-out);
+	@include link-decoration( none );
+}
+
+/** Selection **/
+::-moz-selection {
+    background 			: $selection_background;
+    color 				: $selection_color;
+    text-shadow 		: none;
+}
+
+::selection {
+    background 			: $selection_background;
+    color 				: $selection_color;
+}
+
+/** Headers **/
+h1, h2, h3, h4, h5, h6 { }
+
+
+/** Lists **/
+ul{
+	li{ }
+}
+
+
+/** Forms **/
+input, textarea {
+	color 				: $body_color;
+	font-size 			: $font_size;
+	font-family			: $font_family;
+}
+
+
+/***************
+	Twitter Bootstrap's changes
+***************/
+
+.table td {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	max-width: 150px;
+	white-space: nowrap;
+}
+
+/***************
+	Misc
+***************/
+
+.no-margin {
+	margin 				: 0;
+}
+
+.no-padding {
+	padding 			: 0;
+}
+
+.clear {
+	clear 				: both;
+}
+
+.chromeframe {
+    margin: 0.2em 0;
+    padding: 0.2em 0;
+    background: #ccc;
+    color: #000;
+}
