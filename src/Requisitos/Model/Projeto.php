@@ -92,23 +92,29 @@ class Projeto
     // data inicio
     public function getDataInicio()
     {
-        return $this->data_inicio->format('d/m/Y');
+        return ( $this->data_inicio !== null ? date_format($this->data_inicio,'d/m/Y') : null );
     }
     
     public function setDataInicio($data_inicio)
     {
-        $this->data_inicio = \DateTime::createFromFormat('Y-m-d', $data_inicio);    
+        if($data_inicio != null)
+            $this->data_inicio = \DateTime::createFromFormat('Y-m-d', $data_inicio);   
+        else
+            $this->data_inicio = null;   
     }
 
     // data final
     public function getDataFinal()
     {
-        return $this->data_final->format('d/m/Y');
+        return ( $this->data_final !== null ? date_format($this->data_final,'d/m/Y') : null );
     }
     
     public function setDataFinal($data_final)
     {
-        $this->data_final = \DateTime::createFromFormat('Y-m-d', $data_final);    
+        if($data_final != null)
+            $this->data_final = \DateTime::createFromFormat('Y-m-d', $data_final);   
+        else
+            $this->data_final = null;
     }
 
     // id_cliente

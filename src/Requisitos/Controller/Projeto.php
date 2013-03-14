@@ -17,11 +17,13 @@ $app->get('/projeto', function () use ($app,$entityManager) {
 
     $qb = $entityManager->createQueryBuilder();
 
+    /* arrumar o codigo abaixo pois está muito feio, tem um em baixo coisa linda */
+
     // abertos
     $qb->add('select', 'p')
        ->add('from', 'Requisitos\Model\Projeto p')
        ->where('p.data_final IS NULL AND p.id_usuario = ?2')
-       ->add('orderBy', 'p.data_inicio ASC')
+       ->add('orderBy', 'p.data_inicio DESC')
        ->setParameter(2, $user['id']);
 
     $projetos_abertos = $qb->getQuery()->getResult();
@@ -37,7 +39,7 @@ $app->get('/projeto', function () use ($app,$entityManager) {
     $qb->add('select', 'p')
        ->add('from', 'Requisitos\Model\Projeto p')
        ->where('p.data_final IS NOT NULL AND p.id_usuario = ?2')
-       ->add('orderBy', 'p.data_inicio ASC')
+       ->add('orderBy', 'p.data_final DESC')
        ->setParameter(2, $user['id']);
 
     $projetos_fechados = $qb->getQuery()->getResult();
@@ -105,22 +107,50 @@ $app->get('/projeto', function () use ($app,$entityManager) {
     $app->get('/projeto-editar/{id}', function ($id) use ($app,$entityManager) {
 
         $projeto = $entityManager->find('Requisitos\Model\Projeto',$id);
-
         $projeto->cliente = $projeto->getIdCliente();
 
+        // requisitos
+        $qb = $entityManager->createQueryBuilder();
+
+        // abertos
+        $qb->add('select', 'r')
+           ->add('from', 'Requisitos\Model\Requisito r')
+           ->where('r.data_final IS NULL AND r.id_projeto = ?1')
+           ->add('orderBy', 'r.data_inicio DESC')
+           ->setParameter(1, $id);
+
+        $requisitos_abertos = $qb->getQuery()->getResult();
+
+        // fechados
+         $qb->add('select', 'r')
+           ->add('from', 'Requisitos\Model\Requisito r')
+           ->where('r.data_final IS NOT NULL AND r.id_projeto = ?1')
+           ->add('orderBy', 'r.data_inicio DESC')
+           ->setParameter(1, $id);
+
+        $requisitos_fechados = $qb->getQuery()->getResult();
+
+        // clientes
         $clientes = $entityManager->getRepository('Requisitos\Model\Cliente')->findAll();
 
         $data = array(
-            'projeto'   => $projeto,
-            'clientes'   => $clientes,
-            'readonly'  => FALSE
+            'projeto'               => $projeto,
+            'clientes'              => $clientes,
+            'requisitos_abertos'    => $requisitos_abertos,
+            'requisitos_fechados'   => $requisitos_fechados,
+            'result'                => ''
         );
+
+        // projeto já finalizados não é possível alterar
+        $data['readonly'] = ( $projeto->getDataFinal() !== null ? true : false);
+
         return $app['twig']->render('projeto-editar.html', $data);
     });
 
     // editar - POST
     $app->post('/projeto-editar/{id}', function ($id,Request $request) use ($app,$entityManager) {
 
+        // edição
         $nome           = $request->get('nome');
         $descricao      = $request->get('descricao');
         $id_cliente     = $request->get('id_cliente');
@@ -133,26 +163,66 @@ $app->get('/projeto', function () use ($app,$entityManager) {
 
         $entityManager->merge($projeto);
         $entityManager->flush();
+        // fim edição
 
-        return $app->redirect('../projeto-editar/'.$id);
+        $projeto->cliente = $projeto->getIdCliente();
+
+        $clientes = $entityManager->getRepository('Requisitos\Model\Cliente')->findAll();
+
+        $data = array(
+            'projeto'   => $projeto,
+            'clientes'  => $clientes,
+            'result'    => 'success',
+            'readonly'  => FALSE
+        );
+        return $app['twig']->render('projeto-editar.html', $data);
     });
 
 
-    // finalizar - GET
-    $app->get('/projeto-finalizar/{id}', function () use ($app) {
-        // finalizar o projeto
-        echo "GET - finalizar projeto"; exit;
+    // reabrir - GET
+    $app->get('/projeto-reabrir/{id}', function ($id) use ($app,$entityManager) {
+       
+        $projeto = $entityManager->find('Requisitos\Model\Projeto', $id);
 
-        // redireciona para página do projeto
-        return $app->redirect('../projeto-editar/1');
+        if( !is_null($projeto) ) {
+            $projeto->setDataFinal( NULL );
+
+            $entityManager->merge($projeto);
+            $entityManager->flush();
+        }
+
+        // redireciona para página de projetos
+        return $app->redirect('../projeto');
+    });
+
+    // finalizar - GET
+    $app->get('/projeto-finalizar/{id}', function ($id) use ($app,$entityManager) {
+       
+        $projeto = $entityManager->find('Requisitos\Model\Projeto', $id);
+
+        if( !is_null($projeto) ) {
+            $projeto->setDataFinal( date('Y-m-d') );
+
+            $entityManager->merge($projeto);
+            $entityManager->flush();
+        }
+
+        // redireciona para página de projetos
+        return $app->redirect('../projeto');
     });
     
 
     // deletar - GET
-    $app->get('/projeto-deletar/{id}', function () use ($app) {
-        // deletar o projeto
-        echo "GET - deletar projeto"; exit; 
+    $app->get('/projeto-deletar/{id}', function ($id) use ($app,$entityManager) {
+        
+        $projeto = $entityManager->find('Requisitos\Model\Projeto', $id);
+
+        if( !is_null($projeto) ) {
+            $entityManager->remove($projeto);
+            $entityManager->flush();
+        }
 
         // redireciona para página de projetos
         return $app->redirect('../projeto');
+
     });
