@@ -9,11 +9,16 @@
 
                     <!-- titulo pagina -->
                     <div class="span10">
-                        <h1>Requisito - <small>editar</small></h1>
+                        <h1>{{ requisito.nome }}</h1>
                     </div>
 
-                    <!-- Finalizar requisito -->
-                    <a href="{{ app.request.baseUrl }}/requisito-finalizar/1" class="btn btn-danger pull-right"><i class="icon-ok icon-white"></i> Finalizar requisito</a>
+                    <!-- reabrir/finalizar requisito -->
+                    
+                    {% if readonly == true %} 
+                        <a href="{{ app.request.baseUrl }}/requisito-reabrir/{{ requisito.id }}" onClick="return confirm('Confirma reabrir requisito?')"; class="btn btn-info pull-right"><i class="icon-ok icon-white"></i> Reabrir requisito</a>
+                    {% else %}
+                        <a href="{{ app.request.baseUrl }}/requisito-finalizar/{{ requisito.id }}" onClick="return confirm('Confirma Finalização?')"; class="btn btn-danger pull-right"><i class="icon-ok icon-white"></i> Finalizar requisito</a>
+                    {% endif %}
 
                 </div>
 
@@ -26,14 +31,14 @@
                                 <div class="control-group">
                                     <label class="control-label" for="Código">Código *</label>
                                     <div class="controls">
-                                        <input type="text" class="input-xlarge" name="codigo" value="REQ 001" required>
+                                        <input type="text" class="input-xlarge" name="codigo" value="{{ requisito.codigo }}" required>
                                     </div>
                                 </div>
 
                                 <div class="control-group">
                                     <label class="control-label" for="nome">Nome *</label>
                                     <div class="controls">
-                                        <input type="text" class="input-xlarge" name="nome" value="Requisito um" required>
+                                        <input type="text" class="input-xlarge" name="nome" value="{{ requisito.nome }}" required>
                                     </div>
                                 </div>
 
@@ -41,9 +46,9 @@
                                     <label class="control-label" for="Prioridade">Prioridade *</label>
                                     <div class="controls">
                                         <select class="input-xlarge" name="prioridade" data-select="select2" required>
-                                            <option value="alta">Alta</option>
-                                            <option value="media" selected>Média</option>
-                                            <option value="baixa">Baixa</option>
+                                            <option {% if requisito.prioridade == 'alta' %} selected {% endif %} value="alta">Alta</option>
+                                            <option {% if requisito.prioridade == 'media' %} selected {% endif %} value="media">Média</option>
+                                            <option {% if requisito.prioridade == 'baixa' %} selected {% endif %} value="baixa">Baixa</option>
                                         </select>
                                     </div>
                                 </div>
@@ -52,9 +57,9 @@
                                     <label data-toggle="tooltip" data-placement="right" title="Isso muda direto?" class="control-label" for="Estabilidade">Estabilidade *</label>
                                     <div class="controls">
                                         <select class="input-xlarge" name="estabilidade" data-select="select2" required>
-                                            <option value="alta">Alta</option>
-                                            <option value="media" selected>Média</option>
-                                            <option value="baixa">Baixa</option>
+                                            <option {% if requisito.estabilidade == 'alta' %} selected {% endif %} value="alta">Alta</option>
+                                            <option {% if requisito.estabilidade == 'media' %} selected {% endif %} value="media">Média</option>
+                                            <option {% if requisito.estabilidade == 'baixa' %} selected {% endif %} value="baixa">Baixa</option>
                                         </select>
                                     </div>
                                 </div>
@@ -62,9 +67,10 @@
                                 <div class="control-group">
                                     <label class="control-label" for="Prioridade">Tipo de requisito *</label>
                                     <div class="controls">
-                                        <select class="input-xlarge" name="tipo" data-select="select2" required>
-                                            <option value="funcional">Funcional</option>
-                                            <option value="nao_funcional" selected>Não funcional</option>
+                                        <select class="input-xlarge" name="id_tipo_requisito" data-select="select2" required>
+                                            {% for tipo in tipos %}
+                                                <option {% if requisito.idTipoRequisito == tipo.id %} selected {% endif %} value="{{ tipo.id }}">{{ tipo.nome }}</option>
+                                            {% endfor %}
                                         </select>
                                     </div>
                                 </div>
@@ -72,10 +78,10 @@
                                 <div class="control-group">
                                     <label data-toggle="tooltip" data-placement="right" title="breve explicação" class="control-label" for="Prioridade">Impacto na arquitetura *</label>
                                     <div class="controls">
-                                        <select class="input-xlarge" name="impacto" data-select="select2" required>
-                                            <option value="alta">Alto</option>
-                                            <option value="media" selected>Médio</option>
-                                            <option value="baixa">Baixo</option>
+                                        <select class="input-xlarge" name="impacto_arquitetura" data-select="select2" required>
+                                            <option {% if requisito.impactoArquitetura == 'alta' %} selected {% endif %} value="alta">Alto</option>
+                                            <option {% if requisito.impactoArquitetura == 'media' %} selected {% endif %} value="media">Médio</option>
+                                            <option {% if requisito.impactoArquitetura == 'baixa' %} selected {% endif %} value="baixa">Baixo</option>
                                         </select>
                                     </div>
                                 </div>
@@ -83,17 +89,33 @@
                                 <div class="control-group">
                                     <label class="control-label" for="nome">Descrição / Exemplos</label>
                                     <div class="controls">
-                                        <textarea name="descricao" class="input-xlarge" rows="8">Descrição do requisito</textarea>
+                                        <textarea name="descricao" class="input-xlarge" rows="8">{{ requisito.descricao }}</textarea>
                                     </div>
                                 </div>
 
                                 <div class="control-group">
                                     <label data-toggle="tooltip" data-placement="right" title="Este requisito é dependente de outro?" class="control-label" for="Requisito pai">Requisito pai</label>
                                     <div class="controls">
-                                        <select class="input-xlarge" name="requisito_pai" data-select="select2" multiple>
-                                            <option value="we">REQ001 - Requisito numero 1</option>
-                                            <option value="qwe" selected>REQ002 - Requisito numero 2</option>
-                                            <option value="wee" selected>REQ003 - Requisito numero 3</option>
+                                        <select class="input-xlarge" name="requisito_pai[]" data-select="select2" multiple>
+                                            {% for requisito in requisitos %}
+
+                                                {% set ativo = false %}
+
+                                                {% for pai in requisitos_pais %}
+                                                
+                                                    {% if pai.requisitoPai == requisito.id %}
+                                                        {% set ativo = true %}
+                                                    {% endif %}
+
+                                                {% endfor %}
+
+                                                {% if ativo == true %}
+                                                    <option selected value="{{ requisito.id }}">{{ requisito.nome }}</option>
+                                                {% else %}
+                                                    <option value="{{ requisito.id }}">{{ requisito.nome }}</option>
+                                                {% endif %}
+
+                                            {% endfor %}
                                         </select>
                                     </div>
                                 </div>
@@ -101,12 +123,10 @@
                                 <div class="control-group">
                                     <label class="control-label" for="Contato">Contato</label>
                                     <div class="controls">
-                                        <select class="input-xlarge" name="contato" data-select="select2">
-                                            <option value="">Selecione</option>
-                                            <option value="">Contato nome - função</option>
-                                            <option value="" selected>Contato nome - função</option>
-                                            <option value="">Contato nome - função</option>
-                                            <option value="">Contato nome - função</option>
+                                        <select class="input-xlarge" name="id_cliente_contato" data-select="select2">
+                                            {% for contato in contatos %}
+                                                <option {% if requisito.idClienteContato == contato.id %} selected {% endif %} value="{{ contato.id }}">{{ contato.nome }}</option>
+                                            {% endfor %}
                                         </select>
                                     </div>
                                 </div>

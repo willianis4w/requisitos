@@ -59,9 +59,11 @@
                                 <div class="control-group">
                                     <label class="control-label" for="Prioridade">Tipo de requisito *</label>
                                     <div class="controls">
-                                        <select class="input-xlarge" name="tipo" data-select="select2" required>
-                                            <option value="funcional">Funcional</option>
-                                            <option value="nao_funcional">Não funcional</option>
+                                        <select class="input-xlarge" name="id_tipo_requisito" data-select="select2" required>
+                                            {% for tipo in tipos %}
+                                                <option value="{{ tipo.id }}">{{ tipo.nome }}</option>
+                                            {% endfor %}
+                                            <option value="outro">Outro</option>
                                         </select>
                                     </div>
                                 </div>
@@ -69,7 +71,7 @@
                                 <div class="control-group">
                                     <label data-toggle="tooltip" data-placement="right" title="breve explicação" class="control-label" for="Prioridade">Impacto na arquitetura *</label>
                                     <div class="controls">
-                                        <select class="input-xlarge" name="impacto" data-select="select2" required>
+                                        <select class="input-xlarge" name="impacto_arquitetura" data-select="select2" required>
                                             <option value="alta">Alto</option>
                                             <option value="media" selected>Médio</option>
                                             <option value="baixa">Baixo</option>
@@ -85,12 +87,12 @@
                                 </div>
 
                                 <div class="control-group">
-                                    <label data-toggle="tooltip" data-placement="right" title="Este requisito é dependente de outro?" class="control-label" for="Requisito pai">Requisito pai</label>
+                                    <label data-toggle="tooltip" data-placement="right" title="Este requisito é dependente de outro?" class="control-label" for="Requisito pai">Requisito(s) pai</label>
                                     <div class="controls">
-                                        <select class="input-xlarge" name="requisito_pai" data-select="select2" multiple>
-                                            <option value="req">REQ001 - Requisito numero 1</option>
-                                            <option value="eqw">REQ002 - Requisito numero 2</option>
-                                            <option value="qweqw">REQ003 - Requisito numero 3</option>
+                                        <select class="input-xlarge" name="requisito_pai[]" data-select="select2" multiple>
+                                            {% for requisito in requisitos %}
+                                                <option value="{{ requisito.id }}">{{ requisito.nome }}</option>
+                                            {% endfor %}
                                         </select>
                                     </div>
                                 </div>
@@ -98,12 +100,11 @@
                                 <div class="control-group">
                                     <label class="control-label" for="Contato">Contato</label>
                                     <div class="controls">
-                                        <select class="input-xlarge" name="contato" data-select="select2">
+                                        <select class="input-xlarge" name="id_cliente_contato" data-select="select2">
                                             <option value="">Selecione</option>
-                                            <option value="">Contato nome - função</option>
-                                            <option value="">Contato nome - função</option>
-                                            <option value="">Contato nome - função</option>
-                                            <option value="">Contato nome - função</option>
+                                            {% for contato in contatos %}
+                                                <option value="{{ contato.id }}">{{ contato.nome }}</option>
+                                            {% endfor %}
                                         </select>
                                     </div>
                                 </div>

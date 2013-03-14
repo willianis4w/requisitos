@@ -112,23 +112,34 @@ $app->get('/projeto', function () use ($app,$entityManager) {
         // requisitos
         $qb = $entityManager->createQueryBuilder();
 
-        // abertos
-        $qb->add('select', 'r')
-           ->add('from', 'Requisitos\Model\Requisito r')
-           ->where('r.data_final IS NULL AND r.id_projeto = ?1')
-           ->add('orderBy', 'r.data_inicio DESC')
-           ->setParameter(1, $id);
+            // abertos
+            $qb->add('select', 'r')
+               ->add('from', 'Requisitos\Model\Requisito r')
+               ->where('r.data_final IS NULL AND r.id_projeto = ?1')
+               ->add('orderBy', 'r.data_inicio DESC')
+               ->setParameter(1, $id);
 
-        $requisitos_abertos = $qb->getQuery()->getResult();
+            $requisitos_abertos = $qb->getQuery()->getResult();
 
-        // fechados
-         $qb->add('select', 'r')
-           ->add('from', 'Requisitos\Model\Requisito r')
-           ->where('r.data_final IS NOT NULL AND r.id_projeto = ?1')
-           ->add('orderBy', 'r.data_inicio DESC')
-           ->setParameter(1, $id);
+            foreach ($requisitos_abertos as $key => $requisito) {
+                $requisitos_abertos[$key]->inicio    = $requisito->getDataInicio();
+                $requisitos_abertos[$key]->final     = $requisito->getDataFinal();
+            }
 
-        $requisitos_fechados = $qb->getQuery()->getResult();
+            // fechados
+             $qb->add('select', 'r')
+               ->add('from', 'Requisitos\Model\Requisito r')
+               ->where('r.data_final IS NOT NULL AND r.id_projeto = ?1')
+               ->add('orderBy', 'r.data_inicio DESC')
+               ->setParameter(1, $id);
+
+            $requisitos_fechados = $qb->getQuery()->getResult();
+
+            foreach ($requisitos_fechados as $key => $requisito) {
+                $requisitos_fechados[$key]->inicio    = $requisito->getDataInicio();
+                $requisitos_fechados[$key]->final     = $requisito->getDataFinal();
+            }
+
 
         // clientes
         $clientes = $entityManager->getRepository('Requisitos\Model\Cliente')->findAll();
@@ -194,6 +205,7 @@ $app->get('/projeto', function () use ($app,$entityManager) {
         // redireciona para página de projetos
         return $app->redirect('../projeto');
     });
+
 
     // finalizar - GET
     $app->get('/projeto-finalizar/{id}', function ($id) use ($app,$entityManager) {

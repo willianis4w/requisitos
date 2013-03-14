@@ -103,7 +103,7 @@
                     <!-- adicionar -->
                     {% if readonly == false %} 
                     <div class="span3">
-                        <a href="{{ app.request.baseUrl }}/requisito-adicionar" class="btn btn-primary pull-right"><i class="icon-plus icon-white"></i> Adicionar requisito</a>
+                        <a href="{{ app.request.baseUrl }}/requisito-adicionar/{{ projeto.id }}" class="btn btn-primary pull-right"><i class="icon-plus icon-white"></i> Adicionar requisito</a>
                     </div>
                     {% endif %}
 
@@ -128,12 +128,12 @@
                                 {% for requisito_aberto in requisitos_abertos %}
                                 <tr>
                                     <td>{{ requisito_aberto.codigo }}</td>
-                                    <td>01/02/2013</td>
-                                    <td>Fazer o sistema</td>
-                                    <td>Alta</td>
-                                    <td data-toggle="tooltip" data-placement="left" title="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id eaque veniam ipsam sequi nostrum sapiente voluptatibus quo ducimus ab deserunt fugit maxime aut esse sit eum ipsum vero sunt mollitia">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id eaque veniam ipsam sequi nostrum sapiente voluptatibus quo ducimus ab deserunt fugit maxime aut esse sit eum ipsum vero sunt mollitia?</td>
+                                    <td>{{ requisito_aberto.inicio }}</td>
+                                    <td>{{ requisito_aberto.nome }}</td>
+                                    <td>{{ requisito_aberto.prioridade }}</td>
+                                    <td data-toggle="tooltip" data-placement="left" title="{{ requisito_aberto.descricao }}">{{ requisito_aberto.descricao }}</td>
                                     <td>
-                                        <a data-toggle="tooltip" title="Editar" href="{{ app.request.baseUrl }}/requisito-editar/1"><i class="icon-pencil"></i></a>
+                                        <a data-toggle="tooltip" title="Editar" href="{{ app.request.baseUrl }}/requisito-editar/{{ requisito_aberto.id }}"><i class="icon-pencil"></i></a>
                                     </td>
                                 </tr>
                                 {% endfor %}
@@ -174,18 +174,22 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                {% for requisito_fechado in requisitos_fechados %}
                                 <tr>
-                                    <td>REQ 001</td>
-                                    <td>01/02/2013</td>
-                                    <td>28/02/2013</td>
-                                    <td>Fazer o sistema</td>
-                                    <td>Alta</td>
-                                    <td data-toggle="tooltip" data-placement="left" title="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id eaque veniam ipsam sequi nostrum sapiente voluptatibus quo ducimus ab deserunt fugit maxime aut esse sit eum ipsum vero sunt mollitia">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id eaque veniam ipsam sequi nostrum sapiente voluptatibus quo ducimus ab deserunt fugit maxime aut esse sit eum ipsum vero sunt mollitia?</td>
+                                    <td>{{ requisito_fechado.codigo }}</td>
+                                    <td>{{ requisito_fechado.inicio }}</td>
+                                    <td>{{ requisito_fechado.final }}</td>
+                                    <td>{{ requisito_fechado.nome }}</td>
+                                    <td>{{ requisito_fechado.prioridade }}</td>
+                                    <td data-toggle="tooltip" data-placement="left" title="{{ requisito_fechado.descricao }}">{{ requisito_fechado.descricao }}</td>
                                     <td>
-                                        <a data-toggle="tooltip" title="Editar" href="{{ app.request.baseUrl }}/requisito-editar/1"><i class="icon-pencil"></i></a>
-                                        <a data-toggle="tooltip" title="Excluir permanentemente" onClick="return confirm('Confirma Exclusão?')"; href="{{ app.request.baseUrl }}/requisito-deletar/1"><i class="icon-remove"></i></a>
+                                        <a data-toggle="tooltip" title="Editar" href="{{ app.request.baseUrl }}/requisito-editar/{{ requisito_fechado.id }}"><i class="icon-pencil"></i></a>
+                                        {% if readonly == false %} 
+                                        <a data-toggle="tooltip" title="Excluir permanentemente" onClick="return confirm('Confirma Exclusão?')"; href="{{ app.request.baseUrl }}/requisito-deletar/{{ requisito_fechado.id }}"><i class="icon-remove"></i></a>
+                                        {% endif %} 
                                     </td>
                                 </tr>
+                                {% endfor %}
                             </tbody>
                         </table>
 

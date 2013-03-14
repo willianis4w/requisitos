@@ -76,7 +76,7 @@ class Requisito
 
     /**
      * @ORM\Column(name="id_tipo_requisito")
-     * @ORM\ManyToOne(targetEntity="Requisito")
+     * @ORM\ManyToOne(targetEntity="TipoRequisito")
      * @ORM\JoinColumn(name="id")
      * @var int
      */
@@ -106,19 +106,54 @@ class Requisito
        
     }
 
-    // getter
-    public function __get($name)
-    {
-        if(property_exists($this, $name)){
-            return $this->$name;
-        }
-    }
-
     // setter
     public function __set($name, $value)
     {
         $this->$name = $value;    
     }
+
+    // id
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    // codigo
+    public function getCodigo()
+    {
+        return $this->codigo;
+    }
+
+    // nome
+    public function getNome()
+    {
+        return $this->nome;
+    }
+
+    // prioridade
+    public function getPrioridade()
+    {
+        return $this->prioridade;
+    }
+
+    // estabilidade
+    public function getEstabilidade()
+    {
+        return $this->estabilidade;
+    }
+
+    // impacto_arquitetura
+    public function getImpactoArquitetura()
+    {
+        return $this->impacto_arquitetura;
+    }
+
+    // descricao
+    public function getDescricao()
+    {
+        return $this->descricao;
+    }
+
 
     // data inicio
     public function getDataInicio()
@@ -147,5 +182,24 @@ class Requisito
         else
             $this->data_final = null;
     }
+
+    // id_tipo_requisito
+    public function getIdTipoRequisito()
+    {
+        return $this->id_tipo_requisito;
+    }
+
+    // id_projeto
+    public function getIdProjeto()
+    {
+        return $this->id_projeto;
+    }
+
+    // id_cliente_contato
+    public function getIdClienteContato()
+    {
+        return $this->id_cliente_contato;
+    }
+
 
 }
