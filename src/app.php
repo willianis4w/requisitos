@@ -24,7 +24,7 @@ define('DIR_VENDOR',realpath(dirname(__FILE__) . '/../vendor/') );
 define('DS',DIRECTORY_SEPARATOR);
 
 $loader = require DIR_VENDOR . '/autoload.php';
-$loader->add('Reservas',DIR_ROOT . '/src');
+$loader->add('Requisitos',DIR_ROOT . '/src');
 
 //doctrine
 $config = new Configuration();
@@ -72,5 +72,7 @@ $app['twig'] = $app->share($app->extend('twig', function($twig, $app) {
     return $twig;
 }));
 
+$app['path']        = str_replace('\\', '/', realpath(dirname(__FILE__).'/../web'));
+$app['path_url']    =  substr($_SERVER['DOCUMENT_ROOT'],0,-1).$_SERVER['REQUEST_URI'];
 
 return $app;

@@ -19,12 +19,14 @@ require_once 'Requisitos/Controller/Contato.php';
 require_once 'Requisitos/Controller/Error.php';
 
 // Verifica se o usuario esta logado ou não
+
+
 $app->before(function() use ( $app ){
 
-	if( ( $_SERVER['REQUEST_URI'] != '/requisitos/web/login' ) && ( $_SERVER['REQUEST_URI'] != '/requisitos/web/cadastre' ) ){
+	if( ( $app['path_url']  != $app['path'].'/login' ) && ( $app['path_url']  != $app['path'].'/cadastre' ) ){
 		if ( ( null === $user = $app['session']->get('user') ) || TRUE !== $app['session']->get('auth') ) {
-        	return $app->redirect('login');
+        	return $app->redirect('/willian/requisitos/web/login');
     	}
-	}
+	}	
 	
 });

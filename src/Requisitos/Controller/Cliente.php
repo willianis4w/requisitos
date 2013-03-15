@@ -17,9 +17,11 @@ $app->get('/cliente', function () use ($app,$entityManager) {
 
     $clientes = $entityManager->getRepository('Requisitos\Model\Cliente');
 
-    $clientes = $clientes->findBy( array('id_usuario' => $user['id']) );
+    $clientes = $clientes->findBy( array('id_usuario' => $user['id']) , array('nome' => 'ASC') );
 
     $data = array(
+        'user'     => $user,
+        'active'   => 'clientes',
         'clientes' => $clientes
     );
     return $app['twig']->render('cliente.html', $data);
@@ -29,7 +31,14 @@ $app->get('/cliente', function () use ($app,$entityManager) {
 // adicionar - GET
 $app->get('/cliente-adicionar', function () use ($app) {
 
-    return $app['twig']->render('cliente-adicionar.html');
+    $user = $app['session']->get('user');
+
+    $data = array(
+        'user'     => $user,
+        'active'   => 'clientes'
+    );
+
+    return $app['twig']->render('cliente-adicionar.html', $data);
 });
 
 
@@ -58,14 +67,18 @@ $app->post('/cliente-adicionar', function (Request $request) use ($app,$entityMa
 // editar - GET
 $app->get('/cliente-editar/{id}', function ($id) use ($app,$entityManager) {
 
+    $user = $app['session']->get('user');
+
     $cliente = $entityManager->find('Requisitos\Model\Cliente',$id);
     
-    $contatos = $entityManager->getRepository('Requisitos\Model\Contato')->findBy( array('id_cliente'=> $id) );
+    $contatos = $entityManager->getRepository('Requisitos\Model\Contato')->findBy( array('id_cliente'=> $id) , array('nome' => 'ASC') );
 
     $data = array(
-        'cliente' => $cliente,
-        'contatos' => $contatos,
-        'result' => ''
+        'user'      => $user,
+        'cliente'   => $cliente,
+        'contatos'  => $contatos,
+        'active'    => 'clientes',
+        'result'    => ''
     );
 
     return $app['twig']->render('cliente-editar.html', $data);
@@ -74,6 +87,8 @@ $app->get('/cliente-editar/{id}', function ($id) use ($app,$entityManager) {
 
 // editar - POST
 $app->post('/cliente-editar/{id}', function ($id,Request $request) use ($app,$entityManager) {
+
+    $user = $app['session']->get('user');
 
     // edita o cliente
     $cliente = $entityManager->find('Requisitos\Model\Cliente',$id);
@@ -86,9 +101,11 @@ $app->post('/cliente-editar/{id}', function ($id,Request $request) use ($app,$en
     $contatos = $entityManager->getRepository('Requisitos\Model\Contato')->findBy( array('id_cliente'=> $id) );
 
     $data = array(
-        'cliente' => $cliente,
-        'contatos' => $contatos,
-        'result' => 'success'
+        'user'      => $user,
+        'cliente'   => $cliente,
+        'contatos'  => $contatos,
+        'active'    => 'clientes',
+        'result'    => 'success'
     );
 
     return $app['twig']->render('cliente-editar.html', $data);

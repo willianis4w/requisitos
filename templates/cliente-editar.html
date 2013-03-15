@@ -34,8 +34,6 @@
                            </div>
                         {% endif %}
 
-                        <!-- titulo pagina -->
-
                         <form class="form-horizontal" action="" method="post">
                             <fieldset>
                                 <div class="control-group">
@@ -78,31 +76,39 @@
 
                     <div class="span12">
 
-                        <table class="table table-bordered table-striped table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Nome</th>
-                                    <th>E-mail</th>
-                                    <th>Função</th>
-                                    <th>Observação</th>
-                                    <th style="width: 46px;">Ações</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for contato in contatos %}
-                                <tr>
-                                    <td>{{ contato.nome }}</td>
-                                    <td>{{ contato.email }}</td>
-                                    <td>{{ contato.funcao }}</td>
-                                    <td data-toggle="tooltip" data-placement="left" title="{{ contato.observacao }}">{{ contato.observacao }}</td>
-                                    <td>
-                                        <a data-toggle="tooltip" title="Editar" href="{{ app.request.baseUrl }}/contato-editar/{{ contato.id }}"><i class="icon-pencil"></i></a>
-                                        <a data-toggle="tooltip" title="Excluir" onClick="return confirm('Confirma Exclusão?')"; href="{{ app.request.baseUrl }}/contato-deletar/{{ contato.id }}"><i class="icon-remove"></i></a>
-                                    </td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
+                        {% if contatos is empty %}
+
+                            <p>Nenhum contato cadastrado até o momento.</p>
+
+                        {% else %}
+
+                            <table class="table table-bordered table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Nome</th>
+                                        <th>E-mail</th>
+                                        <th>Função</th>
+                                        <th>Observação</th>
+                                        <th style="width: 46px;">Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for contato in contatos %}
+                                    <tr>
+                                        <td>{{ contato.nome }}</td>
+                                        <td>{{ contato.email }}</td>
+                                        <td>{{ contato.funcao }}</td>
+                                        <td data-toggle="tooltip" data-placement="left" title="{{ contato.observacao }}">{{ contato.observacao }}</td>
+                                        <td>
+                                            <a data-toggle="tooltip" title="Editar" href="{{ app.request.baseUrl }}/contato-editar/{{ contato.id }}"><i class="icon-pencil"></i></a>
+                                            <a data-toggle="tooltip" title="Excluir" onClick="return confirm('Confirma Exclusão?')"; href="{{ app.request.baseUrl }}/contato-deletar/{{ contato.id }}"><i class="icon-remove"></i></a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+
+                        {% endif %}
 
                     </div>
                 </div>

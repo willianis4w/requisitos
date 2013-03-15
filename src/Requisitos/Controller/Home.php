@@ -8,7 +8,5 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /* Home */
 $app->get('/', function () use ($app,$entityManager) {
-
-
-    return $app->redirect('projeto');
+	return $app->redirect('projeto');
 });

@@ -15,10 +15,13 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 // adicionar - GET
 $app->get('/contato-adicionar/{id}', function ($id) use ($app,$entityManager) {
 
+    $user = $app['session']->get('user');
 
     $cliente = $entityManager->find('Requisitos\Model\Cliente',$id);
 
     $data = array(
+        'user'    => $user,
+        'active'  => 'clientes',
         'cliente' => $cliente
     );
 
@@ -52,12 +55,16 @@ $app->post('/contato-adicionar/{id}', function ($id,Request $request) use ($app,
 // editar - GET
 $app->get('/contato-editar/{id}', function ($id) use ($app,$entityManager) {
 
+    $user = $app['session']->get('user');
+
     $contato = $entityManager->find('Requisitos\Model\Contato',$id);
 
     $cliente = $entityManager->find('Requisitos\Model\Cliente', $contato->getIdCliente());
 
     $data = array(
+        'user'    => $user,
         'contato' => $contato,
+        'active'  => 'clientes',
         'cliente' => $cliente
     );
 

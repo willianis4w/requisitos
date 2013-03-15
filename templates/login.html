@@ -1,3 +1,4 @@
+{% spaceless %}
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -9,17 +10,17 @@
         <title>Levantamento de Requisitos</title>
         
         <!-- SEO -->
-        <meta name="keywords" content="">
-        <meta name="description" content="">
+        <meta name="keywords" content="Sistema Levantamento de Requisitos, Levantamento de Requisitos, Engenharia de Software, Requisitos de software, Matriz de rastreabilidade">
+        <meta name="description" content="Sistema para Levantamento de Requisitos">
+
+        <!-- Favicon -->
+        <link href="{{ app.request.basepath }}/public/img/favicon.ico" rel="shortcut icon" />
 
         <!-- Viewport -->
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         
         <!-- Struct -->
         <link rel="stylesheet" href="{{ app.request.basepath }}/public/css/struct.css">
-
-        <!-- Main -->
-        <link rel="stylesheet" href="{{ app.request.basepath }}/public/css/screen.css">
 
     </head>
     <body>
@@ -109,10 +110,10 @@
                                 
                                 <div class="control-group">
                                     <!-- Password-->
-                                    <input type="password" name="senha" placeholder="Senha" class="span8" required>
+                                    <input type="password" name="senha" placeholder="Senha" class="span7" required>
 
                                     <!-- Submit -->
-                                    <button type="submit" class="btn btn-success span3 pull-right">Entrar</button>
+                                    <button type="submit" class="btn btn-success span4 pull-right">Cadastrar</button>
                                 </div>
 
                           </fieldset>
@@ -124,16 +125,18 @@
         </section>
 
 
-        <!-- MODAL is4w -->
-        <div class="modal small hide fade" id="is4w" tabindex="-1" role="dialog" aria-labelledby="is4w" aria-hidden="true">
+        <!-- MODAL sobre -->
+        <div class="modal small hide fade" id="sobre" tabindex="-1" role="dialog" aria-labelledby="sobre" aria-hidden="true">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 id="is4w">Sobre</h4>
+                <h4 id="sobre">Sobre</h4>
             </div>
             <div class="modal-body">
-                <address>
-                    <p>Direitos e coisarada!</p>
-                </address>        
+                <p>Baseado no template de requisitos do professor Cloves Wodtke - IST Sociesc.</p>
+                <p>Idealizado e desenvolvido por Adan F. Medeiros e Willian C. Souza - is4w desenvolvimento web.</p>
+                <p>
+                    Para mais informações, veja no <a href="https://github.com/willianis4w/requisitos" target="_blank">Github</a> ou entre em contato por email <a href="mailto:willian@is4w.com.br" target="_blank">willian@is4w.com.br</a>.
+                </p>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-inverse" data-dismiss="modal" aria-hidden="true">Fechar</button>
@@ -148,7 +151,7 @@
                     <div class="span12">
                         <hr>
                         <p>
-                            <a data-toggle="modal" href="#is4w">Sobre</a>
+                            <a data-toggle="modal" href="#sobre">Sobre</a>
                         </p>
                     </div>
                 </div>
@@ -165,15 +168,11 @@
         head.js("{{ app.request.basepath }}/public/js/vendor/jquery.1.9.0.min.js", /* Jquery */
                 "{{ app.request.basepath }}/public/js/vendor/bootstrap.min.js", /* Bootstrap */
                 "{{ app.request.basepath }}/public/js/plugins.js", /* Chamadas de plugins JS */
-                "{{ app.request.basepath }}/public/js/main.js" /* Main JS */
+                "{{ app.request.basepath }}/public/js/main.js", /* Main JS */
+                "{{ app.request.basepath }}/public/js/vendor/google-analytics.js" /* G.A. */
         );
-
-        /* G.A. */
-        var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
-        (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-        g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
-        s.parentNode.insertBefore(g,s)}(document,'script'));
 
     </script>
   
 </html>
+{% endspaceless %}

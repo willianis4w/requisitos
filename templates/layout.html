@@ -1,3 +1,4 @@
+{% spaceless %}
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -9,8 +10,11 @@
         <title>Levantamento de Requisitos</title>
         
         <!-- SEO -->
-        <meta name="keywords" content="">
-        <meta name="description" content="">
+        <meta name="keywords" content="Sistema Levantamento de Requisitos, Levantamento de Requisitos, Engenharia de Software, Requisitos de software, Matriz de rastreabilidade">
+        <meta name="description" content="Sistema para Levantamento de Requisitos">
+
+        <!-- Favicon -->
+        <link href="{{ app.request.basepath }}/public/img/favicon.ico" rel="shortcut icon" />
 
         <!-- Viewport -->
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -24,11 +28,9 @@
         <!-- Struct -->
         <link rel="stylesheet" href="{{ app.request.basepath }}/public/css/struct.css">
 
-        <!-- Main -->
-        <link rel="stylesheet" href="{{ app.request.basepath }}/public/css/screen.css">
-
     </head>
     <body>
+        
         <!-- Outdated brow-fluidsers -->
 
         <!-- HTML5 Shiv -->
@@ -57,18 +59,18 @@
                     <div class="nav-collapse collapse">
                         <ul class="nav">
                             <li class="divider-vertical"></li>
-                            <li><a href="{{ app.request.baseUrl }}/projeto"><i class="icon-file icon-white"></i> Projetos</a></li>
+                            <li {% if active == 'projetos' %} class="active" {% endif %} ><a href="{{ app.request.baseUrl }}/projeto"><i class="icon-book icon-white"></i> Projetos</a></li>
 
                             <li class="divider-vertical"></li>
-                            <li><a href="{{ app.request.baseUrl }}/cliente"><i class="icon-share icon-white"></i> Clientes</a></li>
+                            <li {% if active == 'clientes' %} class="active" {% endif %} ><a href="{{ app.request.baseUrl }}/cliente"><i class="icon-share icon-white"></i> Clientes</a></li>
                         </ul>
 
                         <ul class="nav pull-right">
                             <li class="divider-vertical"></li>
                             <li class="dropdown">
-                                <a class="dropdown-toggle" href="#" data-toggle="dropdown">Willian <strong class="caret"></strong></a>
+                                <a class="dropdown-toggle" href="#" data-toggle="dropdown">{{ user.nome }} <strong class="caret"></strong></a>
                                 <ul class="dropdown-menu">
-                                  <li><a href="{{ app.request.baseUrl }}/perfil/1"><i class="icon-user"></i> Perfil</a></li>
+                                  <li><a href="{{ app.request.baseUrl }}/perfil/{{ user.id }}"><i class="icon-user"></i> Perfil</a></li>
 
                                   <li class="divider"></li>
                                   <li><a href="{{ app.request.baseUrl }}/logout"><i class="icon-off"></i> Sair</a></li>
@@ -119,6 +121,7 @@
             </div>
         </footer><!-- /FOOTER -->
 
+    
     </body>
 
     <!-- HeadJS -->
@@ -133,15 +136,11 @@
                 // "{{ app.request.basepath }}/web/js/vendor/jquery.maskedinput.min.js", /* Jquery Masked Input */
                 "{{ app.request.basepath }}/public/js/vendor/select2-3.3.1/select2.min.js", /* Select2 JS */
                 "{{ app.request.basepath }}/public/js/plugins.js", /* Chamadas de plugins JS */
-                "{{ app.request.basepath }}/public/js/main.js" /* Main JS */
+                "{{ app.request.basepath }}/public/js/main.js", /* Main JS */
+                "{{ app.request.basepath }}/public/js/vendor/google-analytics.js" /* G.A. */
         );
-
-        /* G.A. */
-        var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
-        (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-        g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
-        s.parentNode.insertBefore(g,s)}(document,'script'));
 
     </script>
   
 </html>
+{% endspaceless %}

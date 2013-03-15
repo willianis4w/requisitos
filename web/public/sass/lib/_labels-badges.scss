@@ -8,7 +8,7 @@
 .badge {
   display: inline-block;
   padding: 2px 4px;
-  font-size: $baseFontSize * .846;
+  // font-size: $baseFontSize * .846;
   font-weight: bold;
   line-height: 14px; // ensure proper line-height if floated
   color: $white;
@@ -22,8 +22,8 @@
   @include border-radius(3px);
 }
 .badge {
-  padding-left: 9px;
-  padding-right: 9px;
+  padding-left: 5px;
+  padding-right: 5px;
   @include border-radius(9px);
 }
 

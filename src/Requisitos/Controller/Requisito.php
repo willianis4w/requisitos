@@ -13,6 +13,8 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 // adicionar - GET
 $app->get('/requisito-adicionar/{id}', function ($id) use ($app,$entityManager) {
 
+    $user = $app['session']->get('user');
+
     $projeto = $entityManager->find('Requisitos\Model\Projeto',$id);
     
     $requisitos = $entityManager->getRepository('Requisitos\Model\Requisito')->findBy( array( 'id_projeto' => $id ) );
@@ -20,9 +22,11 @@ $app->get('/requisito-adicionar/{id}', function ($id) use ($app,$entityManager) 
     $contatos   = $entityManager->getRepository('Requisitos\Model\Contato')->findBy( array( 'id_cliente' => $projeto->getIdCliente() ) );
 
     $data = array(
+        'user'       => $user,
         'projeto'    => $projeto,
         'requisitos' => $requisitos,
         'tipos'      => $tipos,
+        'active'     => 'projetos',
         'contatos'   => $contatos
     );
 
@@ -82,6 +86,8 @@ $app->post('/requisito-adicionar/{id}', function ($id, Request $request) use ($a
 
 // editar - GET
 $app->get('/requisito-editar/{id}', function ($id) use ($app,$entityManager) {
+
+    $user = $app['session']->get('user');
     
     $requisito          = $entityManager->find('Requisitos\Model\Requisito',$id);
 
@@ -97,12 +103,14 @@ $app->get('/requisito-editar/{id}', function ($id) use ($app,$entityManager) {
     $projeto            = $entityManager->find('Requisitos\Model\Projeto',$requisito->getIdProjeto());
 
     $data = array(
+        'user'              => $user,
         'projeto'           => $projeto,
         'requisito'         => $requisito,
         'requisitos'        => $requisitos,
         'requisitos_pais'   => $requisitos_pais,
         'tipos'             => $tipos,
-        'contatos'          => $contatos
+        'contatos'          => $contatos,
+        'active'            => 'projetos'
     );
 
     // projeto já finalizados não é possível alterar

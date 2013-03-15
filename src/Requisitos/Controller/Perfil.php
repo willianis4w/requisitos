@@ -13,11 +13,15 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 // editar - GET
 $app->get('/perfil/{id}', function ($id) use ($app,$entityManager) {
 
+    $user = $app['session']->get('user');
+
     $usuario = $entityManager->find('Requisitos\Model\Usuario', $id);
 
     $data = array(
-        'usuario' => $usuario,
-        'result' => ''
+        'user'      => $user,
+        'usuario'   => $usuario,
+        'active'    => '',
+        'result'    => ''
     );
 
     return $app['twig']->render('perfil.html', $data);
@@ -38,10 +42,20 @@ $app->post('/perfil/{id}', function ($id,Request $request) use ($app,$entityMana
     $entityManager->merge($usuario);
     $entityManager->flush();
 
+    // seta novamente os dados da sessão
+    $user = array(
+        'id' => $usuario->getId(),
+        'nome' => $usuario->getNome(),
+        'email' => $usuario->getEmail()
+    );
+    $app['session']->set('user', $user );
+
     // atualiza as info
     $data = array(
-        'usuario' => $usuario,
-        'result' => 'success'
+        'user'      => $user,
+        'usuario'   => $usuario,
+        'active'    => '',
+        'result'    => 'success'
     );
     return $app['twig']->render('perfil.html', $data);
 });

@@ -21,7 +21,7 @@
                     {% if readonly == true %} 
                         <a href="{{ app.request.baseUrl }}/requisito-reabrir/{{ requisito.id }}" onClick="return confirm('Confirma reabrir requisito?')"; class="btn btn-info pull-right"><i class="icon-ok icon-white"></i> Reabrir requisito</a>
                     {% else %}
-                        <a href="{{ app.request.baseUrl }}/requisito-finalizar/{{ requisito.id }}" onClick="return confirm('Confirma Finalização?')"; class="btn btn-danger pull-right"><i class="icon-ok icon-white"></i> Finalizar requisito</a>
+                        <a href="{{ app.request.baseUrl }}/requisito-finalizar/{{ requisito.id }}" onClick="return confirm('Confirma finalização do requisito?')"; class="btn btn-success pull-right"><i class="icon-ok icon-white"></i> Finalizar requisito</a>
                     {% endif %}
 
                 </div>
@@ -35,21 +35,21 @@
                                 <div class="control-group">
                                     <label class="control-label" for="Código">Código *</label>
                                     <div class="controls">
-                                        <input type="text" class="input-xlarge" name="codigo" value="{{ requisito.codigo }}" required>
+                                        <input type="text" class="input-xlarge" name="codigo" value="{{ requisito.codigo }}" required {% if readonly == true %} readonly {% endif %}>
                                     </div>
                                 </div>
 
                                 <div class="control-group">
-                                    <label class="control-label" for="nome">Nome *</label>
+                                    <label class="control-label" for="nome">Título *</label>
                                     <div class="controls">
-                                        <input type="text" class="input-xlarge" name="nome" value="{{ requisito.nome }}" required>
+                                        <input type="text" class="input-xlarge" name="nome" value="{{ requisito.nome }}" required {% if readonly == true %} readonly {% endif %}>
                                     </div>
                                 </div>
 
                                 <div class="control-group">
                                     <label class="control-label" for="Prioridade">Prioridade *</label>
                                     <div class="controls">
-                                        <select class="input-xlarge" name="prioridade" data-select="select2" required>
+                                        <select class="input-xlarge" name="prioridade" data-select="select2" required {% if readonly == true %} readonly {% endif %}>
                                             <option {% if requisito.prioridade == 'alta' %} selected {% endif %} value="alta">Alta</option>
                                             <option {% if requisito.prioridade == 'media' %} selected {% endif %} value="media">Média</option>
                                             <option {% if requisito.prioridade == 'baixa' %} selected {% endif %} value="baixa">Baixa</option>
@@ -58,9 +58,12 @@
                                 </div>
 
                                 <div class="control-group">
-                                    <label data-toggle="tooltip" data-placement="right" title="Isso muda direto?" class="control-label" for="Estabilidade">Estabilidade *</label>
+                                    <label class="control-label" for="Estabilidade">
+                                        Estabilidade * 
+                                        <span data-toggle="tooltip" data-placement="right" title="Probabilidade de esse requisito ser alterado ou de ocorrer uma mudança na compreensão do requisito pelas equipes de desenvolvimento" class="badge badge-info">?</span>
+                                    </label>
                                     <div class="controls">
-                                        <select class="input-xlarge" name="estabilidade" data-select="select2" required>
+                                        <select class="input-xlarge" name="estabilidade" data-select="select2" required {% if readonly == true %} readonly {% endif %}>
                                             <option {% if requisito.estabilidade == 'alta' %} selected {% endif %} value="alta">Alta</option>
                                             <option {% if requisito.estabilidade == 'media' %} selected {% endif %} value="media">Média</option>
                                             <option {% if requisito.estabilidade == 'baixa' %} selected {% endif %} value="baixa">Baixa</option>
@@ -71,7 +74,7 @@
                                 <div class="control-group">
                                     <label class="control-label" for="Prioridade">Tipo de requisito *</label>
                                     <div class="controls">
-                                        <select class="input-xlarge" name="id_tipo_requisito" data-select="select2" required>
+                                        <select class="input-xlarge" name="id_tipo_requisito" data-select="select2" required {% if readonly == true %} readonly {% endif %}>
                                             {% for tipo in tipos %}
                                                 <option {% if requisito.idTipoRequisito == tipo.id %} selected {% endif %} value="{{ tipo.id }}">{{ tipo.nome }}</option>
                                             {% endfor %}
@@ -80,9 +83,12 @@
                                 </div>
 
                                 <div class="control-group">
-                                    <label data-toggle="tooltip" data-placement="right" title="breve explicação" class="control-label" for="Prioridade">Impacto na arquitetura *</label>
+                                    <label class="control-label" for="Prioridade">
+                                        Impacto arquitetura *
+                                        <span data-toggle="tooltip" data-placement="right" title="Indica como será o impacto deste requisito na arquitetura de projeto" class="badge badge-info">?</span>
+                                    </label>
                                     <div class="controls">
-                                        <select class="input-xlarge" name="impacto_arquitetura" data-select="select2" required>
+                                        <select class="input-xlarge" name="impacto_arquitetura" data-select="select2" required {% if readonly == true %} readonly {% endif %}>
                                             <option {% if requisito.impactoArquitetura == 'alta' %} selected {% endif %} value="alta">Alto</option>
                                             <option {% if requisito.impactoArquitetura == 'media' %} selected {% endif %} value="media">Médio</option>
                                             <option {% if requisito.impactoArquitetura == 'baixa' %} selected {% endif %} value="baixa">Baixo</option>
@@ -93,14 +99,17 @@
                                 <div class="control-group">
                                     <label class="control-label" for="nome">Descrição / Exemplos</label>
                                     <div class="controls">
-                                        <textarea name="descricao" class="input-xlarge" rows="8">{{ requisito.descricao }}</textarea>
+                                        <textarea name="descricao" class="input-xlarge" rows="8" {% if readonly == true %} readonly {% endif %}>{{ requisito.descricao }}</textarea>
                                     </div>
                                 </div>
 
                                 <div class="control-group">
-                                    <label data-toggle="tooltip" data-placement="right" title="Este requisito é dependente de outro?" class="control-label" for="Requisito pai">Requisito(s) origem</label>
+                                    <label class="control-label" for="Requisito pai">
+                                        Requisito(s) origem
+                                        <span data-toggle="tooltip" data-placement="right" title="Relacionamento e rastreabilidade de requisitos" class="badge badge-info">?</span>
+                                    </label>
                                     <div class="controls">
-                                        <select class="input-xlarge" name="requisito_pai[]" data-select="select2" multiple>
+                                        <select class="input-xlarge" name="requisito_pai[]" data-select="select2" multiple {% if readonly == true %} readonly {% endif %}>
                                             {% for requisito in requisitos %}
 
                                                 {% set ativo = false %}
@@ -127,7 +136,7 @@
                                 <div class="control-group">
                                     <label class="control-label" for="Contato">Contato</label>
                                     <div class="controls">
-                                        <select class="input-xlarge" name="id_cliente_contato" data-select="select2">
+                                        <select class="input-xlarge" name="id_cliente_contato" data-select="select2" {% if readonly == true %} readonly {% endif %}>
                                             <option value="">Nenhum</option>
                                             {% for contato in contatos %}
                                                 <option {% if requisito.idClienteContato == contato.id %} selected {% endif %} value="{{ contato.id }}">{{ contato.nome }}</option>
@@ -136,9 +145,11 @@
                                     </div>
                                 </div>
 
-                                <div class="controls">
-                                    <button type="submit" class="btn btn-success">Salvar</button>
-                                </div>
+                                {% if readonly == false %} 
+                                    <div class="controls">
+                                        <button type="submit" class="btn btn-success">Salvar</button>
+                                    </div>
+                                {% endif %}
                             </fieldset>
                         </form>
 

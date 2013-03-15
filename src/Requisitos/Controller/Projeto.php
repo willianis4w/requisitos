@@ -53,8 +53,10 @@ $app->get('/projeto', function () use ($app,$entityManager) {
     }
     
     $data = array(
+        'user'              => $user,
         'projetos_abertos'  => $projetos_abertos,
         'projetos_fechados' => $projetos_fechados,
+        'active'            => 'projetos',
 		'result'            => ''
 	);
     return $app['twig']->render('projeto.html', $data);
@@ -69,6 +71,8 @@ $app->get('/projeto', function () use ($app,$entityManager) {
         $clientes = $entityManager->getRepository('Requisitos\Model\Cliente')->findBy( array('id_usuario' => $user['id']) );
 
         $data = array(
+            'user'     => $user,
+            'active'   => 'projetos',
             'clientes' => $clientes
         );
 
@@ -149,10 +153,12 @@ $app->get('/projeto', function () use ($app,$entityManager) {
         $clientes = $entityManager->getRepository('Requisitos\Model\Cliente')->findBy( array('id_usuario' => $user['id']) );
 
         $data = array(
+            'user'                  => $user,
             'projeto'               => $projeto,
             'clientes'              => $clientes,
             'requisitos_abertos'    => $requisitos_abertos,
             'requisitos_fechados'   => $requisitos_fechados,
+            'active'                => 'projetos',
             'result'                => ''
         );
 

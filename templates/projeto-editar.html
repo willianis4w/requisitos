@@ -40,7 +40,7 @@
                     {% if readonly == true %} 
                         <a href="{{ app.request.baseUrl }}/projeto-reabrir/{{ projeto.id }}" onClick="return confirm('Confirma reabrir projeto?')"; class="btn btn-info pull-right"><i class="icon-ok icon-white"></i> Reabrir projeto</a>
                     {% else %}
-                        <a href="{{ app.request.baseUrl }}/projeto-finalizar/{{ projeto.id }}" onClick="return confirm('Confirma Finalização?')"; class="btn btn-danger pull-right"><i class="icon-ok icon-white"></i> Finalizar projeto</a>
+                        <a href="{{ app.request.baseUrl }}/projeto-finalizar/{{ projeto.id }}" onClick="return confirm('Confirma finalização do projeto?')"; class="btn btn-success pull-right"><i class="icon-ok icon-white"></i> Finalizar projeto</a>
                     {% endif %}
 
                 </div>
@@ -116,32 +116,40 @@
 
                     <div class="span12">
 
-                        <table class="table table-bordered table-striped table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Código</th>
-                                    <th>Data início</th>
-                                    <th>Nome</th>
-                                    <th>Prioridade</th>
-                                    <th>Descrição</th>
-                                    <th style="width: 46px;">Ações</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for requisito_aberto in requisitos_abertos %}
-                                <tr>
-                                    <td>{{ requisito_aberto.codigo }}</td>
-                                    <td>{{ requisito_aberto.inicio }}</td>
-                                    <td>{{ requisito_aberto.nome }}</td>
-                                    <td>{{ requisito_aberto.prioridade }}</td>
-                                    <td data-toggle="tooltip" data-placement="left" title="{{ requisito_aberto.descricao }}">{{ requisito_aberto.descricao }}</td>
-                                    <td>
-                                        <a data-toggle="tooltip" title="Editar" href="{{ app.request.baseUrl }}/requisito-editar/{{ requisito_aberto.id }}"><i class="icon-pencil"></i></a>
-                                    </td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
+                        {% if requisitos_abertos is empty %}
+
+                            <p>Nenhum requisito aberto até o momento.</p>
+
+                        {% else %}
+
+                            <table class="table table-bordered table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Código</th>
+                                        <th>Data início</th>
+                                        <th>Nome</th>
+                                        <th>Prioridade</th>
+                                        <th>Descrição</th>
+                                        <th style="width: 46px;">Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for requisito_aberto in requisitos_abertos %}
+                                    <tr>
+                                        <td>{{ requisito_aberto.codigo }}</td>
+                                        <td>{{ requisito_aberto.inicio }}</td>
+                                        <td>{{ requisito_aberto.nome }}</td>
+                                        <td>{{ requisito_aberto.prioridade }}</td>
+                                        <td data-toggle="tooltip" data-placement="left" title="{{ requisito_aberto.descricao }}">{{ requisito_aberto.descricao }}</td>
+                                        <td>
+                                            <a data-toggle="tooltip" title="Editar" href="{{ app.request.baseUrl }}/requisito-editar/{{ requisito_aberto.id }}"><i class="icon-pencil"></i></a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+
+                        {% endif %}
 
                     </div>
                 </div>
@@ -164,37 +172,45 @@
 
                     <div class="span12">
 
-                        <table class="table table-bordered table-striped table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Código</th>
-                                    <th>Data início</th>
-                                    <th>Data conclusão</th>
-                                    <th>Nome</th>
-                                    <th>Prioridade</th>
-                                    <th>Descrição</th>
-                                    <th style="width: 46px;">Ações</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for requisito_fechado in requisitos_fechados %}
-                                <tr>
-                                    <td>{{ requisito_fechado.codigo }}</td>
-                                    <td>{{ requisito_fechado.inicio }}</td>
-                                    <td>{{ requisito_fechado.final }}</td>
-                                    <td>{{ requisito_fechado.nome }}</td>
-                                    <td>{{ requisito_fechado.prioridade }}</td>
-                                    <td data-toggle="tooltip" data-placement="left" title="{{ requisito_fechado.descricao }}">{{ requisito_fechado.descricao }}</td>
-                                    <td>
-                                        <a data-toggle="tooltip" title="Editar" href="{{ app.request.baseUrl }}/requisito-editar/{{ requisito_fechado.id }}"><i class="icon-pencil"></i></a>
-                                        {% if readonly == false %} 
-                                        <a data-toggle="tooltip" title="Excluir permanentemente" onClick="return confirm('Confirma Exclusão?')"; href="{{ app.request.baseUrl }}/requisito-deletar/{{ requisito_fechado.id }}"><i class="icon-remove"></i></a>
-                                        {% endif %} 
-                                    </td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
+                        {% if requisitos_fechados is empty %}
+
+                            <p>Nenhum requisito aberto até o momento.</p>
+
+                        {% else %}
+
+                            <table class="table table-bordered table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Código</th>
+                                        <th>Data início</th>
+                                        <th>Data conclusão</th>
+                                        <th>Nome</th>
+                                        <th>Prioridade</th>
+                                        <th>Descrição</th>
+                                        <th style="width: 46px;">Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for requisito_fechado in requisitos_fechados %}
+                                    <tr>
+                                        <td>{{ requisito_fechado.codigo }}</td>
+                                        <td>{{ requisito_fechado.inicio }}</td>
+                                        <td>{{ requisito_fechado.final }}</td>
+                                        <td>{{ requisito_fechado.nome }}</td>
+                                        <td>{{ requisito_fechado.prioridade }}</td>
+                                        <td data-toggle="tooltip" data-placement="left" title="{{ requisito_fechado.descricao }}">{{ requisito_fechado.descricao }}</td>
+                                        <td>
+                                            <a data-toggle="tooltip" title="Visualizar" href="{{ app.request.baseUrl }}/requisito-editar/{{ requisito_fechado.id }}"><i class="icon-pencil"></i></a>
+                                            {% if readonly == false %} 
+                                            <a data-toggle="tooltip" title="Excluir permanentemente" onClick="return confirm('Confirma exclusão permanente do requisito?')"; href="{{ app.request.baseUrl }}/requisito-deletar/{{ requisito_fechado.id }}"><i class="icon-remove"></i></a>
+                                            {% endif %} 
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+
+                        {% endif %}
 
                     </div>
                 </div>
