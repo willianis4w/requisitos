@@ -29,15 +29,18 @@ Neste projeto você encontra:
 * Modelo do banco de dados
 
 -
-### TODO
+### Futuro
 =
 
 * Controle de empresa para multi usuários
+* Matriz de rastreabilidade
+* Lista de relacionamento e rastreabilidade
+* Relatórios
 
 -
 
 ## Contribua!
 =
 
-+ Baseado no template de requisitos do professor - IST Sociesc.
++ Baseado no template de requisitos do professor Cloves Wodtke - IST Sociesc.
 + Idealizado e desenvolvido por Adan F. Medeiros e Willian C. Souza - is4w desenvolvimento web.
