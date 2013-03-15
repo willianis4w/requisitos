@@ -1,25 +1,9 @@
  ☐ fazer inputs readonly
  ☐ série de validações de url e tal
- ☐ colocar '*' em campos obrigatorios
  ☐ Sobre
  ☐ Página para se cadastrar
- ☐ Impressão dos requisitos( futuro )
- ☐ breadcumbs ( futuro )
- ☐ na tela do requisito, botão para mostrar requisitos dependentes ( futuro )
- ☐ matriz de rastreabilidade ( futuro distante )
- ☐ lista de relacionamento e rastreabilidade ( futuro distante )
+ ☐ breadcumbs
 
  // requisito pai = requisito origem
- 
-
 
  ☐ revisão geral
-
-＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
-Archive:
- ✔ reabrir requisito @done (13-03-14 18:10)
- ✔ CRUD de requisitos @done (13-03-14 18:10)
- ✔ Entity de requisitos @done (13-03-14 14:59)
- ✔ reabrir projeto( tirar da finalização ) @done (13-03-14 10:39)
- ✔ finalizar projeto @done (13-03-14 10:39)
- ✔ deletar projeto @done (13-03-14 10:01)
