@@ -64,7 +64,9 @@ $app->get('/projeto', function () use ($app,$entityManager) {
     // adicionar - GET
     $app->get('/projeto-adicionar', function () use ($app,$entityManager) {
 
-        $clientes = $entityManager->getRepository('Requisitos\Model\Cliente')->findAll();
+        $user = $app['session']->get('user');
+
+        $clientes = $entityManager->getRepository('Requisitos\Model\Cliente')->findBy( array('id_usuario' => $user['id']) );
 
         $data = array(
             'clientes' => $clientes
@@ -142,7 +144,9 @@ $app->get('/projeto', function () use ($app,$entityManager) {
 
 
         // clientes
-        $clientes = $entityManager->getRepository('Requisitos\Model\Cliente')->findAll();
+        $user = $app['session']->get('user');
+
+        $clientes = $entityManager->getRepository('Requisitos\Model\Cliente')->findBy( array('id_usuario' => $user['id']) );
 
         $data = array(
             'projeto'               => $projeto,
@@ -176,17 +180,7 @@ $app->get('/projeto', function () use ($app,$entityManager) {
         $entityManager->flush();
         // fim edição
 
-        $projeto->cliente = $projeto->getIdCliente();
-
-        $clientes = $entityManager->getRepository('Requisitos\Model\Cliente')->findAll();
-
-        $data = array(
-            'projeto'   => $projeto,
-            'clientes'  => $clientes,
-            'result'    => 'success',
-            'readonly'  => FALSE
-        );
-        return $app['twig']->render('projeto-editar.html', $data);
+        return $app->redirect('../projeto-editar/'.$id);
     });
 
 

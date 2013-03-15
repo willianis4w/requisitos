@@ -8,7 +8,10 @@
                 <div class="row-fluid">
 
                     <div class="span12">
-                        <h1>Clientes - <small>editar</small></h1>
+                        <ul class="breadcrumb">
+                            <li><a href="{{ app.request.baseUrl }}/cliente">Clientes</a> <span class="divider">/</span></li>
+                            <li class="active">{{ cliente.nome }}</li>
+                        </ul>
                     </div>
 
                 </div>

@@ -9,7 +9,10 @@
 
                     <!-- titulo pagina -->
                     <div class="span12">
-                        <h1>{{ projeto.nome }}</h1>
+                        <ul class="breadcrumb">
+                            <li><a href="{{ app.request.baseUrl }}/projeto">Projetos</a> <span class="divider">/</span></li>
+                            <li class="active">{{ projeto.nome }}</li>
+                        </ul>
                     </div>
 
                     {% if result == 'success' %}

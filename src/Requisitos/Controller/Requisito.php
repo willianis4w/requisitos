@@ -20,6 +20,7 @@ $app->get('/requisito-adicionar/{id}', function ($id) use ($app,$entityManager) 
     $contatos   = $entityManager->getRepository('Requisitos\Model\Contato')->findBy( array( 'id_cliente' => $projeto->getIdCliente() ) );
 
     $data = array(
+        'projeto'    => $projeto,
         'requisitos' => $requisitos,
         'tipos'      => $tipos,
         'contatos'   => $contatos
@@ -44,8 +45,8 @@ $app->post('/requisito-adicionar/{id}', function ($id, Request $request) use ($a
     $id_projeto             = $id;
     
     $conn = $entityManager->getConnection();
-        
-    $conn->insert('requisito', array(
+    
+    $dados = array(
         'codigo'                => $codigo,
         'nome'                  => $nome,
         'prioridade'            => $prioridade,
@@ -54,19 +55,25 @@ $app->post('/requisito-adicionar/{id}', function ($id, Request $request) use ($a
         'impacto_arquitetura'   => $impacto_arquitetura,
         'descricao'             => $descricao,
         'data_inicio'           => $data_inicio,
-        'id_cliente_contato'    => $id_cliente_contato,
         'id_projeto'            => $id_projeto
-    ));
+    );
+
+    if( !empty($id_cliente_contato) )
+        $dados['id_cliente_contato'] = $id_cliente_contato;
+
+    $conn->insert('requisito', $dados );
 
     // pega o id inserido
     $id_requisito = $conn->lastInsertId();
 
     // insere requisitos pais
-    foreach ( $request->get('requisito_pai') as $requisito_pai ) {
-        $conn->insert('requisito_pai', array(
-            'requisito_pai'     => $requisito_pai,
-            'requisito_filho'   => $id_requisito
-        ));
+    if( $request->get('requisito_pai') !== null ) {
+        foreach ( $request->get('requisito_pai') as $requisito_pai ) {
+            $conn->insert('requisito_pai', array(
+                'requisito_pai'     => $requisito_pai,
+                'requisito_filho'   => $id_requisito
+            ));
+        }
     }
 
     // redireciona para página do projeto
@@ -82,11 +89,15 @@ $app->get('/requisito-editar/{id}', function ($id) use ($app,$entityManager) {
     $tipos              = $entityManager->getRepository('Requisitos\Model\TipoRequisito')->findAll();
     $requisitos_pais    = $entityManager->getRepository('Requisitos\Model\RequisitoPai')->findBy( array( 'requisito_filho' => $id ) );
 
-    $id_contato         = $requisito->getIdClienteContato();
-    $contato            = $entityManager->find('Requisitos\Model\Contato',$id_contato);
-    $contatos           = $entityManager->getRepository('Requisitos\Model\Contato')->findBy( array( 'id_cliente' => $contato->getIdCliente() ) );
+    $projeto            = $entityManager->find('Requisitos\Model\Projeto',$requisito->getIdProjeto());
+
+    $cliente            = $entityManager->find('Requisitos\Model\Cliente',$projeto->getIdCliente());
+    $contatos           = $entityManager->getRepository('Requisitos\Model\Contato')->findBy( array( 'id_cliente' => $cliente->getId() ) );
+
+    $projeto            = $entityManager->find('Requisitos\Model\Projeto',$requisito->getIdProjeto());
 
     $data = array(
+        'projeto'           => $projeto,
         'requisito'         => $requisito,
         'requisitos'        => $requisitos,
         'requisitos_pais'   => $requisitos_pais,
@@ -113,7 +124,8 @@ $app->post('/requisito-editar/{id}', function ($id,Request $request) use ($app,$
     $requisito->id_tipo_requisito      = $request->get('id_tipo_requisito');
     $requisito->impacto_arquitetura    = $request->get('impacto_arquitetura');
     $requisito->descricao              = $request->get('descricao');
-    $requisito->id_cliente_contato     = $request->get('id_cliente_contato');
+    $id_cliente_contato = $request->get('id_cliente_contato');
+    $requisito->id_cliente_contato     = ( !empty( $id_cliente_contato ) ? $id_cliente_contato : NULL );
 
     $entityManager->merge($requisito);
     $entityManager->flush();

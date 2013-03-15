@@ -2,13 +2,9 @@
 
 -
 
-### Visão Geral
+### Visão Geral - Objetivo
 ==========
 Sistema para levantamento de requisitos
-
-### Objetivo
-=
-Sistema simples de levantamento de requisitos
 
 -
 

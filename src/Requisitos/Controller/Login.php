@@ -33,8 +33,7 @@ $app->post('/login', function (Request $request) use ($app,$entityManager) {
 
     if( !empty($usuario) ) {
         // registra session
-        echo $usuario[0]->getEmail();
-
+        
         $user = array(
             'id' => $usuario[0]->getId(),
             'nome' => $usuario[0]->getNome(),

@@ -9,7 +9,11 @@
 
                     <!-- titulo pagina -->
                     <div class="span10">
-                        <h1>{{ requisito.nome }}</h1>
+                        <ul class="breadcrumb">
+                            <li><a href="{{ app.request.baseUrl }}/projeto">Projetos</a> <span class="divider">/</span></li>
+                            <li><a href="{{ app.request.baseUrl }}/projeto-editar/{{ projeto.id }}">{{ projeto.nome }}</a> <span class="divider">/</span></li>
+                            <li class="active">{{ requisito.nome }}</li>
+                        </ul>
                     </div>
 
                     <!-- reabrir/finalizar requisito -->
@@ -94,7 +98,7 @@
                                 </div>
 
                                 <div class="control-group">
-                                    <label data-toggle="tooltip" data-placement="right" title="Este requisito é dependente de outro?" class="control-label" for="Requisito pai">Requisito pai</label>
+                                    <label data-toggle="tooltip" data-placement="right" title="Este requisito é dependente de outro?" class="control-label" for="Requisito pai">Requisito(s) origem</label>
                                     <div class="controls">
                                         <select class="input-xlarge" name="requisito_pai[]" data-select="select2" multiple>
                                             {% for requisito in requisitos %}
@@ -124,6 +128,7 @@
                                     <label class="control-label" for="Contato">Contato</label>
                                     <div class="controls">
                                         <select class="input-xlarge" name="id_cliente_contato" data-select="select2">
+                                            <option value="">Nenhum</option>
                                             {% for contato in contatos %}
                                                 <option {% if requisito.idClienteContato == contato.id %} selected {% endif %} value="{{ contato.id }}">{{ contato.nome }}</option>
                                             {% endfor %}
