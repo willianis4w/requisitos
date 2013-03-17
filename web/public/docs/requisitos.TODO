@@ -1,7 +1,9 @@
  ☐ série de validações de url e tal
  ☐ Comentários código
- ☐ Não deixar finalizar projeto se um requisito estiver aberto
- ☐ Não deixar reabrir um requisito se o projeto estiver fechado
+ ☐ Implementar um "Esqueci a senha"
+ ☐ Não deixar finalizar um requisito que tem um requisito pai em aberto.
+ ☐ Não deixar finalizar projeto se um requisito estiver aberto.
+ ☐ Não deixar reabrir um requisito se o projeto estiver fechado.
 
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿

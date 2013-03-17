@@ -4,6 +4,8 @@ require_once 'Requisitos/Controller/Cadastre.php';
 
 require_once 'Requisitos/Controller/Login.php';
 
+require_once 'Requisitos/Controller/Esqueceu.php';
+
 require_once 'Requisitos/Controller/Home.php';
 
 require_once 'Requisitos/Controller/Perfil.php';
@@ -23,9 +25,9 @@ require_once 'Requisitos/Controller/Error.php';
 
 $app->before(function() use ( $app ){
 
-	if( ( $app['path_url']  != $app['path'].'/login' ) && ( $app['path_url']  != $app['path'].'/cadastre' ) ){
+	if( ( $app['path_url']  != $app['path'].'/login' ) && ( $app['path_url']  != $app['path'].'/cadastre' ) && ( $app['path_url']  != $app['path'].'/esqueceu' ) ){
 		if ( ( null === $user = $app['session']->get('user') ) || TRUE !== $app['session']->get('auth') ) {
-        	return $app->redirect('/willian/requisitos/web/login');
+        	return $app->redirect('/requisitos/web/login');
     	}
 	}	
 	

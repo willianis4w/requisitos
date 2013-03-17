@@ -56,15 +56,11 @@
                         <hr>
                     </div>
                     
-
-                    <div class="span8" style="margin-left:0;">
-                        <img src="{{ app.request.basepath }}/public/img/levantamentorequisitos.jpg" alt="Levantamento de requisitos">
-                    </div>
-                    <div class="span4">
+                    <div class="span5 offset3">
 
                         <form class="form-horizontal well" style="padding: 0 19px;" action="" method="post" name="loginForm">
 
-                            <h3>Login</h3>
+                            <h3>Preencha seu e-mail para recuperação da senha</h3>
 
                             <fieldset>
                                 
@@ -81,48 +77,14 @@
                                 </div>
 
                                 <div class="control-group">
-                                    <!-- Password-->
-                                    <input type="password" name="senha" placeholder="Senha" class="span8" required>
-                                    
                                     <!-- Submit -->
                                     <button type="submit" class="btn btn-success span3 pull-right">Entrar</button>
                                 </div>
 
-                                <div class="control-group">
-                                    <p><a href="{{ app.request.basepath }}/esqueceu"><i class="icon-chevron-right"></i> Esqueceu a senha?</a></p>
-                                </div>
-                                
-                          </fieldset>
+                            </fieldset>
                         </form>
 
-                        <form class="form-horizontal well" style="padding: 0 19px;" action="{{ app.request.basepath }}/cadastre" method="post" name="cadastreForm">
-
-                            <h3>Novo por aqui? Cadastre-se</h3>
-
-                            <fieldset>
-                                
-                                <!-- Nome -->
-                                <div class="control-group">
-                                    <input type="text" name="nome" placeholder="Nome" class="span12" required>
-                                </div>
-
-                                <!-- E-mail -->
-                                <div class="control-group">
-                                    <input type="email" name="email" placeholder="E-mail" class="span12" required>
-                                </div>
-
-                                
-                                <div class="control-group">
-                                    <!-- Password-->
-                                    <input type="password" name="senha" placeholder="Senha" class="span7" required>
-
-                                    <!-- Submit -->
-                                    <button type="submit" class="btn btn-success span4 pull-right">Cadastrar</button>
-                                </div>
-
-                          </fieldset>
-                        </form>
-
+                        
                     </div>
                 </div>
             </div>
