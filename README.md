@@ -39,4 +39,4 @@ Neste projeto você encontra:
 =
 
 + Baseado no template de requisitos do professor Cloves Wodtke - IST Sociesc.
-+ Idealizado e desenvolvido por Adan F. Medeiros e Willian C. Souza - is4w desenvolvimento web.
++ Idealizado e desenvolvido por Adan F. Medeiros e Willian C. Souza.
